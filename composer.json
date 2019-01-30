@@ -1,0 +1,27 @@
+{
+    "name": "yb98k/fiction",
+    "description": "fiction spider",
+    "type": "library",
+    "require": {
+        "php": ">=7.0",
+        "yb98k/request": "~1.0",
+        "illuminate/database": "^5.7",
+        "predis/predis": "^1.1",
+        "symfony/cache": "^4.2",
+        "guzzlehttp/guzzle": "^6.3",
+        "illuminate/mail": "^5.5.40"
+    },
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "yk",
+            "email": "yb98k@qq.com"
+        }
+    ],
+    "minimum-stability": "dev",
+    "autoload": {
+        "psr-4": {
+            "core\\": "core/"
+        }
+    }
+}
