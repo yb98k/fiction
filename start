@@ -3,7 +3,6 @@
 
 include( __DIR__ . '/vendor/autoload.php' );
 
-
 try{
     $DI = new \core\Container(require( __DIR__ . '/config/main.php' ));
 
@@ -17,4 +16,3 @@ try{
 }catch (\Exception $ex){
     \core\Command::displayMsg($ex->getMessage());
 }
-
