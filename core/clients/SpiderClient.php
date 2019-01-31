@@ -24,7 +24,38 @@ class SpiderClient
             throw new \Exception('connect failed, error:' . var_export($client->errCode));
         }
 
-        $client->send('11111');
+        $data = [
+            'action' => 'add',
+            'host' => $config->get('host'),
+            'port' => $config->get('port'),
+            'setting' => $config->get('setting')
+        ];
+
+        $client->send(json_encode($data));
+
+        Command::displayMsg($client->recv(), 'green');
+
+        $client->close();
+    }
+
+    public static function repeatRequest(Agency $config)
+    {
+
+        $client = new \Swoole\Client(SWOOLE_SOCK_TCP);
+
+        $linkRes = $client->connect($config->get('host'), $config->get('port'), -1);
+        if(!$linkRes) {
+            throw new \Exception('connect failed, error:' . var_export($client->errCode));
+        }
+
+        $data = [
+            'action' => 'repeat',
+            'host' => $config->get('host'),
+            'port' => $config->get('port'),
+            'setting' => $config->get('setting')
+        ];
+
+        $client->send(json_encode($data));
 
         Command::displayMsg($client->recv(), 'green');
 

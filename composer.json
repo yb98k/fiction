@@ -9,7 +9,9 @@
         "predis/predis": "^1.1",
         "symfony/cache": "^4.2",
         "guzzlehttp/guzzle": "^6.3",
-        "illuminate/mail": "^5.5.40"
+        "illuminate/mail": "^5.5.40",
+        "voku/simple_html_dom": "dev-master",
+        "voku/portable-utf8": "dev-master"
     },
     "license": "MIT",
     "authors": [
@@ -21,7 +23,9 @@
     "minimum-stability": "dev",
     "autoload": {
         "psr-4": {
-            "core\\": "core/"
+            "core\\": "core/",
+            "common\\": "common/",
+            "spider\\": "spiders/"
         }
     }
 }

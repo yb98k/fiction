@@ -9,4 +9,8 @@
 return [
     'host' => '127.0.0.1',
     'port' => 9501,
+    'setting' => [
+        'class' => '\spider\QiSuCrawler',
+        'url'   => 'https://www.qisuu.la'
+    ]
 ];
