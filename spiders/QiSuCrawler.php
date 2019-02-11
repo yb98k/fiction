@@ -35,15 +35,23 @@ class QiSuCrawler extends Crawler
 
         $allHref = $html->find('a')->href ?? [];
 
-        $this->getFiles($allHref, $this->url);
+        $crawlerUrls = [];
+
+        $this->getFiles($allHref, $crawlerUrls);
     }
 
-    public function getFiles($allHref, $originUrl)
+    public function getFiles($allHref, &$crawlerUrls)
     {
         foreach ($allHref as $url) {
             if($url == '/') continue;
-            if($url == $originUrl) continue;
-            var_dump($url);
+            if(strpos($url, '/../') !== false) continue;
+            if(strpos($url, '//') === false && mb_substr($url, 0, 1) != '/') continue;
+            $md5Url = md5($url);
+            if(in_array($md5Url, $crawlerUrls)) continue;
+            $crawlerUrls[] = $md5Url;
+
+//            var_dump($url);
+
             $url = strpos($url, '://') === false ? $this->domain . $url : $url;
             if(strpos($url, '.txt') !== false) {
                 $this->queue->enqueue($url);
@@ -52,14 +60,14 @@ class QiSuCrawler extends Crawler
 
                     do{
                         $fileUrl = $this->queue->dequeue();
-//                        self::downloadFile($fileUrl);
-                        var_dump('下载链接：' . $fileUrl);
+                        self::downloadFile($fileUrl);
+//                        var_dump('下载链接：' . $fileUrl);
                     }while($this->queue->count() > 0);
                 }
             } else {
                 $html = self::getHtmlObj($url, true);
                 if(is_array($html->find('a')->href)) {
-                    $this->getFiles($html->find('a')->href, $url);
+                    $this->getFiles($html->find('a')->href, $crawlerUrls);
                 }
             }
         }
